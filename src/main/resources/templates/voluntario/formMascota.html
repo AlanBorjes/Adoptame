@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{/css/menu.css}" />
+</head>
+
+<body>
+	<div class="container-fluid">
+
+		<div th:insert="~{fragments/header :: header}"></div>
+
+		<div class="row">
+			<div class="col-3" th:insert="~{fragments/menuVoluntario :: menu}"></div>
+
+			<div class="col-9">
+				<div class="card mt-3">
+					<div class="card-body">
+						<h2 class="mb-3" th:text="*{id == null} ? 'Nueva mascota' : 'Modificar mascota'"></h2>
+						<form th:action="@{/mascotas/guardar}" method="POST" th:object="${mascota}">
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Nombre</label>
+									<input class="form-control form-control-lg" type="text" placeholder="" name="nombre" th:value="${mascota.nombre}"/>
+								</div>
+								<div class="form-group col">
+									<label>Sexo</label>
+									<br>
+									<div class="form-control-lg form-check form-check-inline">
+										<input class="form-check-input" type="radio" th:value="M" name="sexo" id="sexo1" th:field="*{sexo}">
+										<label class="form-check-label" for="sexo1">Macho</label>
+									</div>
+									<div class="form-control-lg form-check form-check-inline">
+										<input class="form-check-input" type="radio" th:value="H" name="sexo" id="sexo2" th:field="*{sexo}">
+										<label class="form-check-label" for="sexo2">Hembra</label>
+									</div>
+								</div>
+								<div class="form-group col">
+									<label>Edad</label>
+									<input class="form-control form-control-lg" type="text" placeholder="" name="edad" th:value="${mascota.edad}">
+								</div>
+							</div>
+
+							<div class="form-row">
+								<div class="form-group col">
+									<label>Tamaño</label>
+									<select class="form-control" th:field="*{tamano.id}">
+										<option th:each="tmpTamano : ${listaTamanos}" th:value="${tmpTamano.id}" th:text="${tmpTamano.nombre}" />
+									</select>
+								</div>
+								<div class="form-group col">
+									<label>Color</label>
+									<select class="form-control" th:field="*{color.id}">
+										<option th:each="tmpColor : ${listaColores}" th:value="${tmpColor.id}" th:text="${tmpColor.nombre}"/>
+									</select>
+								</div>
+								<div class="form-group col">
+									<label>Carácter</label>
+									<select class="form-control" th:field="*{caracter.id}">
+										<option th:each="tmpCaracter : ${listaCaracteres}" th:value="${tmpCaracter.id}" th:text="${tmpCaracter.nombre}"/>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-row">
+								<div class="col">
+									<label>Tipo</label>
+									<br>
+									<div class="form-control-lg form-check form-check-inline">
+										<input class="form-check-input" type="radio" th:value="gato" name="tipo" id="tipo1" th:field="*{tipo}">
+										<label class="form-check-label" for="tipo1">Gato</label>
+									</div>
+									<div class="form-control-lg form-check form-check-inline">
+										<input class="form-check-input" type="radio" th:value="perro" name="tipo" id="tipo2" th:field="*{tipo}">
+										<label class="form-check-label" for="tipo2">Perro</label>
+									</div>
+								</div>
+								<div class="col">
+									<label>Imagen</label>
+									<input class="form-control form-control-lg" type="file" placeholder="" name="imagen">
+								</div>
+							</div>
+							<input type="hidden" th:field="*{id}" th:value="*{id}" />
+							<button type="submit" class="btn btn-primary btn-lg btn-block mt-3">
+								<ion-icon name="checkmark"></ion-icon>&nbsp;Guardar
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!--Ionicons-->
+	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
